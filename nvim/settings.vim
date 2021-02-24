@@ -19,7 +19,7 @@ set smarttab                            " Makes tabbing smarter will realize you
 set expandtab                           " Converts tabs to spaces
 set smartindent                         " Makes indenting smart
 set autoindent                          " Good auto indent
-set laststatus=2                        " lightline
+set laststatus=2
 set number                              " Line numbers
 set cursorline                          " Enable highlighting of the current line
 set showtabline=2                       " Always show tabs
@@ -75,6 +75,7 @@ let $FZF_DEFAULT_COMMAND="rg --files --hidden"
 "         prompt_position = "top",
 "         initial_mode = "normal",
 "     }
+"     require'telescope.builtin'.grep_string{ only_sort_text = true}
 " EOF
 
 " =============================
@@ -117,7 +118,6 @@ set completeopt=menu,menuone,noselect
 " Avoid showing message extra message when using completion
 set shortmess+=c
 
-
 " =============================
 "           SYNTAX
 " =============================
@@ -127,7 +127,6 @@ lua << EOF
         'typescript', { prefer_single_line_comments = true }
     )
 EOF
-
 
 " =============================
 "           VISUAL
@@ -140,7 +139,7 @@ let g:indentLine_char = '┊'
 
 lua << EOF
     local lualine = require('lualine')
-    lualine.theme='solarized_light'
+    lualine.options.theme='solarized_light'
     lualine.sections.lualine_x = { 'filetype' }
     lualine.status()
 EOF
@@ -151,7 +150,6 @@ let g:neosolarized_vertSplitBgTrans = 0
 let g:neosolarized_italic = 1
 
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
 
 " =============================
 "           DAP
@@ -172,11 +170,10 @@ lua << EOF
 EOF
 
 " nvim-dap
+au FileType dap-repl lua require('dap.ext.autocompl').attach()
+
 command! -complete=file -nargs=* Pdaas lua require"debuggers".pdaas({<f-args>})
-
-" nvim-dap-python
 command! -complete=file -nargs=* Qsync lua require('dap').continue()
-
 
 " =============================
 "           TREESITTER
@@ -192,7 +189,6 @@ lua << EOF
     require "nvim-treesitter.highlight"
 EOF
 
-
 " =============================
 "           SIGNIFY
 " =============================
@@ -204,7 +200,6 @@ let g:signify_sign_change            = '~'
 
 let g:signify_sign_show_count = 0
 let g:signify_sign_show_text = 1
-
 
 " =============================
 "           STARTIFY
@@ -220,10 +215,11 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
 \   { 'c': '~/.config/nvim/' },
-\   { 's': '~/.config/nvim/general/settings.vim' },
-\   { 'm': '~/.config/nvim/keys/mappings.vim' },
+\   { 's': '~/.config/nvim/settings.vim' },
+\   { 'm': '~/.config/nvim/mappings.vim' },
 \   { 'p': '~/Plaid/pdaas/src/pd2/extractor' },
-\   { 'q': '~/Quovo/qsync2' },
+\   { 'q': '~/Quovo/qsync2/crawlers' },
+\   { 'bp': '~/.bash_profile'  },
 \ ]
 
 let g:startify_session_autoload = 1
@@ -233,6 +229,10 @@ let g:startify_fortune_use_unicode = 1
 let g:startify_session_persistence = 1
 
 let g:webdevicons_enable_startify = 1
-let g:startify_custom_header = [
-\ '',
-\]
+let g:startify_custom_header = ['']
+
+" =============================
+"           WORDMOTION
+" =============================
+
+let g:wordmotion_nomap = 1

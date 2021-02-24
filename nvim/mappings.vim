@@ -43,6 +43,9 @@ vnoremap X "_X
 " yank to end of line
 nnoremap Y y$
 
+" display file path
+nnoremap fn <cmd>echo @%<CR>
+
 " =============================
 "           DAP
 " =============================
@@ -58,9 +61,9 @@ nnoremap <silent> <leader>so <cmd>lua require'dap'.step_out()<CR>
 "           FZF
 " =============================
 
-nnoremap <C-p> :Files<CR>
-nnoremap <C-f> :Rg<CR>
-nnoremap <C-b> :Buffers<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <C-f> :Rg<CR>
+nnoremap <silent> <C-b> :Buffers<CR>
 
 " =============================
 "           TELESCOPE
@@ -95,4 +98,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "           SIGNIFY
 " =============================
 
-nmap <leader>gm :SignifyHunkDiff<CR>
+nmap <silent> <leader>gm :SignifyHunkDiff<CR>
+
+" =============================
+"           WORDMOTION
+" =============================
+
+nmap w <Plug>WordMotion_w
+nmap b <Plug>WordMotion_b

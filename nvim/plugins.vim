@@ -12,15 +12,15 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'sheerun/vim-polyglot'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'b3nj5m1n/kommentary'
-
-    " auto pairs for '(' '[' '{'
     " Plug 'jiangmiao/auto-pairs'
+    Plug 'chaoren/vim-wordmotion'
 
     " visual
     Plug 'andreacastellanos/NeoSolarized' " custom colors for nvim-dap
     Plug 'kyazdani42/nvim-web-devicons'
     Plug 'Yggdroot/indentLine'
     Plug 'kosayoda/nvim-lightbulb'
+    Plug 'dstein64/nvim-scrollview'
 
     " statusline and buffertabs
     Plug 'hoob3rt/lualine.nvim'
@@ -58,5 +58,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " lint
     " Plug 'neomake/neomake'
 
+    " Plug 'vim-test/vim-test'
 
 call plug#end()
