@@ -99,21 +99,19 @@ lua << EOF
         source = {
             path = true;
             buffer = true;
-            calc = true;
-            vsnip = true;
             nvim_lsp = true;
-            nvim_lua = true;
             spell = true;
             tags = true;
-            snippets_nvim = true;
+            treesitter = true;
         }
     })
 EOF
 
 " completion-nvim
 " autocmd BufEnter * lua require'completion'.on_attach()
+" set completeopt=menu,menuone,noselect
 
-set completeopt=menu,menuone,noselect
+set completeopt=menuone,noselect
 
 " Avoid showing message extra message when using completion
 set shortmess+=c

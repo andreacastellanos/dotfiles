@@ -32,13 +32,16 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " disable setting macros
-map q <Nop>
+" map q <Nop>
 
 " don't yank on delete char
 nnoremap x "_x
 nnoremap X "_X
 vnoremap x "_x
 vnoremap X "_X
+
+" don't yank on delete line
+nnoremap dd "_dd
 
 " yank to end of line
 nnoremap Y y$
