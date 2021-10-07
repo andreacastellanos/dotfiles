@@ -32,7 +32,7 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " disable setting macros
-" map q <Nop>
+map q <Nop>
 
 " don't yank on delete char
 nnoremap x "_x
@@ -61,20 +61,12 @@ nnoremap <silent> <leader>si <cmd>lua require'dap'.step_into()<CR>
 nnoremap <silent> <leader>so <cmd>lua require'dap'.step_out()<CR>
 
 " =============================
-"           FZF
-" =============================
-
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <silent> <C-f> :Rg<CR>
-nnoremap <silent> <C-b> :Buffers<CR>
-
-" =============================
 "           TELESCOPE
 " =============================
 
-" nnoremap <C-p> <cmd>Telescope find_files<CR>
-" nnoremap <C-f> <cmd>Telescope live_grep<CR>
-" nnoremap <C-b> <cmd>Telescope buffers<CR>
+nnoremap <C-p> <cmd>Telescope find_files<CR>
+nnoremap <C-f> <cmd>Telescope live_grep<CR>
+nnoremap <C-b> <cmd>Telescope buffers<CR>
 
 " =============================
 "           LSP
@@ -87,15 +79,6 @@ nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ca <cmd>lua vim.lsp.buf.code_action()<CR>
-
-" nvim-compe
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " =============================
 "           SIGNIFY

@@ -34,14 +34,29 @@ M.pdaas = function()
     dap.repl.open({}, 'vsplit')
 end
 
+M.qsync = function()
+    local qsyncAdapter = {
+        type = 'python';
+        request = 'launch';
+        name = "Launch file";
+        program = "${file}";
+        console = 'integratedTerminal';
+    }
+    local session = dap.launch(qsyncAdapter, {}, {})
+    if session == nil then
+        io.write("Error launching adapter");
+    end
+    dap.repl.open({}, 'vsplit')
+end
+
 require('dap').configurations.python = {
-  {
-    type = 'python';
-    request = 'launch';
-    name = "Launch file";
-    program = "${file}";
-    console = 'integratedTerminal';
-  },
+    {
+        type = 'python';
+        request = 'launch';
+        name = "Launch file";
+        program = "${file}";
+        console = 'integratedTerminal';
+    },
 }
 
 return M

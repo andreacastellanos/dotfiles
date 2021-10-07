@@ -27,7 +27,7 @@ set updatetime=300                      " Faster completion
 set timeoutlen=500                      " By default timeoutlen is 1000 ms
 set clipboard=unnamedplus               " Copy paste between vim and everything else
 set relativenumber
-set colorcolumn=79
+set colorcolumn=99
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
@@ -44,87 +44,80 @@ cmap w!! w !sudo tee %
 let g:python3_host_prog = '~/.virtualenvs/neovim3/bin/python3.7'
 
 " =============================
-"           FZF
-" =============================
-
-" Customize fzf colors to match your color scheme
-let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'border':  ['fg', 'Ignore'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
-
-let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
-let $FZF_DEFAULT_COMMAND="rg --files --hidden"
-
-" =============================
 "           TELESCOPE
 " =============================
 
-" lua << EOF
-"     require('telescope').setup{
-"         prompt_position = "top",
-"         initial_mode = "normal",
-"     }
-"     require'telescope.builtin'.grep_string{ only_sort_text = true}
-" EOF
+lua << EOF
+    require('telescope').setup{
+        prompt_position = "top",
+    }
+EOF
 
 " =============================
 "           LSP
 " =============================
 
 lua << EOF
-    require'lspconfig'.tsserver.setup{
-        --- " on_attach=require'completion'.on_attach,
-        --- " flags = { allow_incremental_sync = true }
-    }
-    require'lspconfig'.pyls.setup{
-        cmd = { '/Users/acastellanos/.virtualenvs/CRAWLER_VENV/bin/pyls' },
-        --- " on_attach=require'completion'.on_attach,
-        --- " flags = { allow_incremental_sync = true }
-    }
-
-    require'compe'.setup({
-        enabled = true,
-        autocomplete = true,
-        source = {
-            path = true;
-            buffer = true;
-            nvim_lsp = true;
-            spell = true;
-            tags = true;
-            treesitter = true;
+    local lspkind = require('lspkind')
+    local cmp = require('cmp')
+    cmp.setup({
+        mapping = {
+            ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+            ['<C-f>'] = cmp.mapping.scroll_docs(4),
+            ['<C-Space>'] = cmp.mapping.complete(),
+            ['<C-e>'] = cmp.mapping.close(),
+            ['<Enter>'] = cmp.mapping.confirm({ select = true }),
+            ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' })
+        },
+        sources = {
+            { name = 'nvim_lsp' },
+            { name = 'buffer' } ,
+        },
+        formatting = {
+            format = function(entry, vim_item)
+                vim_item.kind = require("lspkind").presets.default[vim_item.kind] .. " " .. vim_item.kind
+                vim_item.menu = ({
+                    nvim_lsp = "[LSP]",
+                    path = "[Path]",
+                    buffer = "[Buffer]",
+                })[entry.source.name]
+                return vim_item
+            end,
         }
     })
+
+    cmp.setup {
+      formatting = {
+        format = lspkind.cmp_format({ with_text = true })
+      }
+    }
+
+    require'lspconfig'.tsserver.setup{
+        on_attach=on_attach,
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    }
+    require'lspconfig'.pylsp.setup{
+        cmd = { '/Users/acastellanos/.virtualenvs/CRAWLER_VENV/bin/pylsp' },
+        on_attach=on_attach,
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    }
 EOF
 
-" completion-nvim
-" autocmd BufEnter * lua require'completion'.on_attach()
-" set completeopt=menu,menuone,noselect
 
 set completeopt=menuone,noselect
 
-" Avoid showing message extra message when using completion
+" Avoid showing extra message when using completion
 set shortmess+=c
 
 " =============================
 "           SYNTAX
 " =============================
 
-lua << EOF
-    require('kommentary.config').configure_language(
-        'typescript', { prefer_single_line_comments = true }
-    )
-EOF
+" lua << EOF
+"     require('kommentary.config').configure_language(
+"         'typescript', { prefer_single_line_comments = true }
+"     )
+" EOF
 
 " =============================
 "           VISUAL
@@ -135,12 +128,22 @@ let bufferline.animation = v:false
 
 let g:indentLine_char = '┊'
 
-lua << EOF
-    local lualine = require('lualine')
-    lualine.options.theme='solarized_light'
-    lualine.sections.lualine_x = { 'filetype' }
-    lualine.status()
-EOF
+" lua << EOF
+"     local lualine = require('lualine')
+"     lualine.options.theme='solarized_light'
+"     lualine.sections.lualine_x = { 'filetype' }
+"     lualine.status()
+" " EOF
+" lua << EOF
+"   require'lualine'.setup {
+"     options = {
+"       theme = 'solarized_light',
+"     },
+"     sections = {
+"       lualine_x = { 'filetype' },
+"     }
+"   }
+" EOF
 
 colorscheme NeoSolarized
 
@@ -171,21 +174,22 @@ EOF
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
 
 command! -complete=file -nargs=* Pdaas lua require"debuggers".pdaas({<f-args>})
+command! -complete=file -nargs=* Crawl lua require"debuggers".qsync({<f-args>})
 command! -complete=file -nargs=* Qsync lua require('dap').continue()
 
 " =============================
 "           TREESITTER
 " =============================
 
-lua << EOF
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "typescript", "python" , "json" },
-        highlight = {
-            enable = true,
-        },
-    }
-    require "nvim-treesitter.highlight"
-EOF
+" lua << EOF
+"     require'nvim-treesitter.configs'.setup {
+"         ensure_installed = { "typescript", "python" , "json" },
+"         highlight = {
+"             enable = true,
+"         },
+"     }
+"     require "nvim-treesitter.highlight"
+" EOF
 
 " =============================
 "           SIGNIFY
@@ -215,6 +219,7 @@ let g:startify_bookmarks = [
 \   { 'c': '~/.config/nvim/' },
 \   { 's': '~/.config/nvim/settings.vim' },
 \   { 'm': '~/.config/nvim/mappings.vim' },
+\   { 'pi': '~/.config/nvim/plugins.vim' },
 \   { 'p': '~/Plaid/pdaas/src/pd2/extractor' },
 \   { 'q': '~/Quovo/qsync2/crawlers' },
 \   { 'bp': '~/.bash_profile'  },
