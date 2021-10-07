@@ -113,11 +113,11 @@ set shortmess+=c
 "           SYNTAX
 " =============================
 
-" lua << EOF
-"     require('kommentary.config').configure_language(
-"         'typescript', { prefer_single_line_comments = true }
-"     )
-" EOF
+lua << EOF
+    require('kommentary.config').configure_language(
+        'typescript', { prefer_single_line_comments = true }
+    )
+EOF
 
 " =============================
 "           VISUAL
@@ -128,22 +128,13 @@ let bufferline.animation = v:false
 
 let g:indentLine_char = '┊'
 
-" lua << EOF
-"     local lualine = require('lualine')
-"     lualine.options.theme='solarized_light'
-"     lualine.sections.lualine_x = { 'filetype' }
-"     lualine.status()
-" " EOF
-" lua << EOF
-"   require'lualine'.setup {
-"     options = {
-"       theme = 'solarized_light',
-"     },
-"     sections = {
-"       lualine_x = { 'filetype' },
-"     }
-"   }
-" EOF
+lua << EOF
+    local custom_solarized_light = require'lualine.themes.solarized_light'
+    require'lualine'.setup{
+        options = { theme = custom_solarized_light },
+        sections = { lualine_x = { 'filetype' }}
+    }
+EOF
 
 colorscheme NeoSolarized
 
@@ -181,15 +172,15 @@ command! -complete=file -nargs=* Qsync lua require('dap').continue()
 "           TREESITTER
 " =============================
 
-" lua << EOF
-"     require'nvim-treesitter.configs'.setup {
-"         ensure_installed = { "typescript", "python" , "json" },
-"         highlight = {
-"             enable = true,
-"         },
-"     }
-"     require "nvim-treesitter.highlight"
-" EOF
+lua << EOF
+    require'nvim-treesitter.configs'.setup {
+        ensure_installed = { "typescript", "python" , "json" },
+        highlight = {
+            enable = true,
+        },
+    }
+    require "nvim-treesitter.highlight"
+EOF
 
 " =============================
 "           SIGNIFY

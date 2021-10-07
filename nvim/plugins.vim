@@ -12,8 +12,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'sheerun/vim-polyglot'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'b3nj5m1n/kommentary'
+    Plug 'chaoren/vim-wordmotion'
     " Plug 'jiangmiao/auto-pairs'
-    " Plug 'chaoren/vim-wordmotion'
 
     " visual
     Plug 'andreacastellanos/NeoSolarized' " custom colors for nvim-dap
@@ -28,12 +28,8 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'romgrk/barbar.nvim'
 
     " search
-    " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    " Plug 'junegunn/fzf.vim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
-
-    Plug 'liuchengxu/vim-which-key'
 
     " start up screen
     Plug 'mhinz/vim-startify'
@@ -45,24 +41,20 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'mfussenegger/nvim-dap'
     Plug 'mfussenegger/nvim-dap-python'
     Plug 'rcarriga/nvim-dap-ui'
-
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'theHamsta/nvim-dap-virtual-text'
 
-    " snippets
-    Plug 'SirVer/ultisnips'
-    Plug 'honza/vim-snippets'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " lsp
     Plug 'neovim/nvim-lspconfig'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
+    Plug 'onsails/lspkind-nvim'
 
-    " lint
-    " Plug 'neomake/neomake'
-
-    " test
+    " other
+    Plug 'liuchengxu/vim-which-key'
     " Plug 'rcarriga/vim-ultest'
+    " Plug 'neomake/neomake'
 
 call plug#end()
