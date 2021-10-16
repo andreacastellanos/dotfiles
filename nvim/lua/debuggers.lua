@@ -13,7 +13,7 @@ M.pdaas = function()
         type = "node2";
         request = "launch";
         runtimeExecutable = os.getenv("HOME") .. "/.nvm/versions/node/v12.18.2/bin/node";
-        program = os.getenv("HOME") .. "/Plaid/pdaas/build/pd2/scripts/cli/index.js";
+        program = os.getenv("HOME") .. "/Plaid/pdaas2/build/pd2/scripts/cli/index.js";
         cwd = vim.fn.getcwd();
         sourceMaps = true;
         outFiles = {
@@ -34,14 +34,29 @@ M.pdaas = function()
     dap.repl.open({}, 'vsplit')
 end
 
+M.qsync = function()
+    local qsyncAdapter = {
+        type = 'python';
+        request = 'launch';
+        name = "Launch file";
+        program = "${file}";
+        console = 'integratedTerminal';
+    }
+    local session = dap.launch(qsyncAdapter, {}, {})
+    if session == nil then
+        io.write("Error launching adapter");
+    end
+    dap.repl.open({}, 'vsplit')
+end
+
 require('dap').configurations.python = {
-  {
-    type = 'python';
-    request = 'launch';
-    name = "Launch file";
-    program = "${file}";
-    console = 'integratedTerminal';
-  },
+    {
+        type = 'python';
+        request = 'launch';
+        name = "Launch file";
+        program = "${file}";
+        console = 'integratedTerminal';
+    },
 }
 
 return M
