@@ -107,9 +107,9 @@ function gls () {
 }
 
 function gcp {
-  gc && gp
+  gc && gps
 }
 
 function gph {
-  gp && gh
+  gps && gh
 }
