@@ -34,13 +34,11 @@ nnoremap <C-l> <C-w>l
 " disable setting macros
 map q <Nop>
 
-" don't yank on delete char
+" don't yank on delete char/line
 nnoremap x "_x
 nnoremap X "_X
 vnoremap x "_x
 vnoremap X "_X
-
-" don't yank on delete line
 nnoremap dd "_dd
 
 " yank to end of line
@@ -79,6 +77,11 @@ nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> gh <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> ca <cmd>lua vim.lsp.buf.code_action()<CR>
+
+" =============================
+"           CONJURE
+" =============================
+
 
 " =============================
 "           SIGNIFY

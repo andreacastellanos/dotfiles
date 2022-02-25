@@ -2,13 +2,14 @@
 "           GENERAL
 " =============================
 
-" set leader key
+" set leader keys
 let g:mapleader = "\<Space>"
+let maplocalleader="\<Space>"
 
 syntax enable                           " Enables syntax highlighing
 set hidden                              " Required to keep multiple buffers open multiple buffers
 set nowrap                              " Display long lines as just one line
-set ruler              			            " Show the cursor position all the time
+set ruler                               " Show the cursor position all the time
 set mouse=a                             " Enable your mouse
 set splitbelow                          " Horizontal splits will automatically be below
 set splitright                          " Vertical splits will automatically be to the right
@@ -41,7 +42,7 @@ au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm al
 
 cmap w!! w !sudo tee %
 
-let g:python3_host_prog = '~/.virtualenvs/neovim3/bin/python3.7'
+let g:python3_host_prog = '~/.virtualenvs/py3venv/bin/python3.7'
 
 " =============================
 "           TELESCOPE
@@ -54,7 +55,7 @@ lua << EOF
 EOF
 
 " =============================
-"           LSP
+"           COMPE 
 " =============================
 
 lua << EOF
@@ -91,18 +92,7 @@ lua << EOF
         format = lspkind.cmp_format({ with_text = true })
       }
     }
-
-    require'lspconfig'.tsserver.setup{
-        on_attach=on_attach,
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-    }
-    require'lspconfig'.pylsp.setup{
-        cmd = { '/Users/acastellanos/.virtualenvs/CRAWLER_VENV/bin/pylsp' },
-        on_attach=on_attach,
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-    }
 EOF
-
 
 set completeopt=menuone,noselect
 
@@ -110,24 +100,57 @@ set completeopt=menuone,noselect
 set shortmess+=c
 
 " =============================
+"           LSP 
+" =============================
+
+lua << EOF
+    --- to-do: figure out why lsp is (really) slow to load
+    require'lspconfig'.clojure_lsp.setup{
+        on_attach=on_attach,
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    }
+
+    require'lspconfig'.pylsp.setup{
+        cmd = { '~/.virtualenvs/py3venv/bin/pylsp' },
+        on_attach=on_attach,
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+    }
+EOF
+
+" =============================
 "           SYNTAX
 " =============================
 
 lua << EOF
     require('kommentary.config').configure_language(
-        'typescript', { prefer_single_line_comments = true }
+        'clojure', { prefer_single_line_comments = true }
     )
+EOF
+
+" =============================
+"           THEME
+" =============================
+
+colorscheme solarized
+let g:solarized_borders = v:true
+
+" devicons
+lua << EOF
+    require'nvim-web-devicons'.setup{}
 EOF
 
 " =============================
 "           VISUAL
 " =============================
 
+" barbar
 let bufferline = {}
 let bufferline.animation = v:false
 
-let g:indentLine_char = '┊'
+" visual indents
+" let g:indentLine_char = '┊'
 
+" lualine
 lua << EOF
     local custom_solarized_light = require'lualine.themes.solarized_light'
     require'lualine'.setup{
@@ -136,12 +159,11 @@ lua << EOF
     }
 EOF
 
-colorscheme NeoSolarized
-
-let g:neosolarized_vertSplitBgTrans = 0
-let g:neosolarized_italic = 1
-
+" code action lightbulb
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
+
+" to-do: figure out why this isn't working. theme?
+let g:rainbow_active = 1
 
 " =============================
 "           DAP
@@ -152,7 +174,7 @@ let g:dap_virtual_text = 1
 lua << EOF
     require"debuggers"
     require('dap-python').setup(
-        '~/.virtualenvs/CRAWLER_VENV/bin/python3.7', { include_configs = false }
+        '~/.virtualenvs/py3venv/bin/python3.7', { include_configs = false }
     )
     require('dap-python').test_runner = 'pytest'
 
@@ -164,9 +186,7 @@ EOF
 " nvim-dap
 au FileType dap-repl lua require('dap.ext.autocompl').attach()
 
-command! -complete=file -nargs=* Pdaas lua require"debuggers".pdaas({<f-args>})
-command! -complete=file -nargs=* Crawl lua require"debuggers".qsync({<f-args>})
-command! -complete=file -nargs=* Qsync lua require('dap').continue()
+command! -complete=file -nargs=* Python lua require"debuggers".python({<f-args>})
 
 " =============================
 "           TREESITTER
@@ -174,7 +194,7 @@ command! -complete=file -nargs=* Qsync lua require('dap').continue()
 
 lua << EOF
     require'nvim-treesitter.configs'.setup {
-        ensure_installed = { "typescript", "python" , "json" },
+        ensure_installed = { "clojure", "python" , "json" },
         highlight = {
             enable = true,
         },
@@ -210,10 +230,8 @@ let g:startify_bookmarks = [
 \   { 'c': '~/.config/nvim/' },
 \   { 's': '~/.config/nvim/settings.vim' },
 \   { 'm': '~/.config/nvim/mappings.vim' },
-\   { 'pi': '~/.config/nvim/plugins.vim' },
-\   { 'p': '~/Plaid/pdaas/src/pd2/extractor' },
-\   { 'q': '~/Quovo/qsync2/crawlers' },
-\   { 'bp': '~/.bash_profile'  },
+\   { 'p': '~/.config/nvim/plugins.vim' },
+\   { 'z': '~/.zshrc'  },
 \ ]
 
 let g:startify_session_autoload = 1

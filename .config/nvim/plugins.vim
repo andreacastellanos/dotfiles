@@ -13,18 +13,23 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'b3nj5m1n/kommentary'
     Plug 'chaoren/vim-wordmotion'
-    " Plug 'jiangmiao/auto-pairs'
+    Plug 'luochen1990/rainbow'
+    Plug 'jiangmiao/auto-pairs'
+
+    " theme
+    Plug 'shaunsingh/solarized.nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
 
     " visual
-    Plug 'andreacastellanos/NeoSolarized' " custom colors for nvim-dap
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'Yggdroot/indentLine'
     Plug 'kosayoda/nvim-lightbulb'
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'Yggdroot/indentLine'
+    " Plug 'preservim/nerdtree'
     " Plug 'dstein64/nvim-scrollview'
     " Plug 'axlebedev/footprints'
 
     " statusline and buffertabs
-    Plug 'shadmansaleh/lualine.nvim'
+    Plug 'nvim-lualine/lualine.nvim'
     Plug 'romgrk/barbar.nvim'
 
     " search
@@ -37,13 +42,14 @@ call plug#begin('~/.config/nvim/autoload/plugged')
     " git
     Plug 'mhinz/vim-signify'
 
+    " clojure
+    Plug 'Olical/conjure'
+
     " debuggers
     Plug 'mfussenegger/nvim-dap'
     Plug 'mfussenegger/nvim-dap-python'
     Plug 'rcarriga/nvim-dap-ui'
     Plug 'theHamsta/nvim-dap-virtual-text'
-
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
     " lsp
     Plug 'neovim/nvim-lspconfig'
