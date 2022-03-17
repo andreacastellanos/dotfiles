@@ -4,31 +4,31 @@
 
 " set leader keys
 let g:mapleader = "\<Space>"
-let maplocalleader="\<Space>"
+let g:maplocalleader = ","
 
-syntax enable                           " Enables syntax highlighing
-set hidden                              " Required to keep multiple buffers open multiple buffers
-set nowrap                              " Display long lines as just one line
-set ruler                               " Show the cursor position all the time
-set mouse=a                             " Enable your mouse
-set splitbelow                          " Horizontal splits will automatically be below
-set splitright                          " Vertical splits will automatically be to the right
-set t_Co=256                            " Support 256 colors
-set tabstop=2                           " Insert 2 spaces for a tab
-set shiftwidth=2                        " Change the number of space characters inserted for indentation
-set smarttab                            " Makes tabbing smarter will realize you have 2 vs 4
-set expandtab                           " Converts tabs to spaces
-set smartindent                         " Makes indenting smart
-set autoindent                          " Good auto indent
+syntax enable
+set hidden
+" set nowrap
+set ruler
+set mouse=a
+set splitbelow
+set splitright
+set t_Co=256
+set shiftwidth=2
+set tabstop=2
+set smarttab
+set expandtab
+set smartindent
+set autoindent
 set laststatus=2
-set number                              " Line numbers
-set cursorline                          " Enable highlighting of the current line
-set showtabline=2                       " Always show tabs
-set updatetime=300                      " Faster completion
-set timeoutlen=500                      " By default timeoutlen is 1000 ms
-set clipboard=unnamedplus               " Copy paste between vim and everything else
+set number
+set cursorline
+" set showtabline=2
+set updatetime=300
+set timeoutlen=500
+set clipboard=unnamedplus
 set relativenumber
-set colorcolumn=99
+"set colorcolumn=99
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
@@ -38,7 +38,7 @@ set smartcase
 set termguicolors
 set background=light
 
-au! BufWritePost $MYVIMRC source %      " auto source when writing to init.vm alternatively you can run :source $MYVIMRC
+au! BufWritePost $MYVIMRC source %      " auto source:source $MYVIMRC
 
 cmap w!! w !sudo tee %
 
@@ -104,10 +104,14 @@ set shortmess+=c
 " =============================
 
 lua << EOF
-    --- to-do: figure out why lsp is (really) slow to load
     require'lspconfig'.clojure_lsp.setup{
-        on_attach=on_attach,
-        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+        on_attach = function(client)
+            client.resolved_capabilities.document_formatting = false
+        end,
+        capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities()),
+        handlers = {
+            ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {virtual_text = false})
+        }
     }
 
     require'lspconfig'.pylsp.setup{
@@ -136,7 +140,7 @@ let g:solarized_borders = v:true
 
 " devicons
 lua << EOF
-    require'nvim-web-devicons'.setup{}
+    require("nvim-web-devicons").setup{ default = true }
 EOF
 
 " =============================
@@ -147,23 +151,19 @@ EOF
 let bufferline = {}
 let bufferline.animation = v:false
 
-" visual indents
-" let g:indentLine_char = '┊'
-
 " lualine
 lua << EOF
     local custom_solarized_light = require'lualine.themes.solarized_light'
     require'lualine'.setup{
         options = { theme = custom_solarized_light },
-        sections = { lualine_x = { 'filetype' }}
+        sections = { 
+            lualine_x = { 'filetype' },
+        },
     }
 EOF
 
 " code action lightbulb
 autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
-
-" to-do: figure out why this isn't working. theme?
-let g:rainbow_active = 1
 
 " =============================
 "           DAP
@@ -198,6 +198,9 @@ lua << EOF
         highlight = {
             enable = true,
         },
+        rainbow = {
+            enable = true,
+        },
     }
     require "nvim-treesitter.highlight"
 EOF
@@ -206,13 +209,9 @@ EOF
 "           SIGNIFY
 " =============================
 
-let g:signify_sign_add               = '+'
-let g:signify_sign_delete            = '_'
-let g:signify_sign_delete_first_line = '‾'
-let g:signify_sign_change            = '~'
-
+let g:signify_sign_delete = '-'
+let g:signify_sign_change = '~'
 let g:signify_sign_show_count = 0
-let g:signify_sign_show_text = 1
 
 " =============================
 "           STARTIFY
@@ -244,7 +243,24 @@ let g:webdevicons_enable_startify = 1
 let g:startify_custom_header = ['']
 
 " =============================
-"           WORDMOTION
+"           TREE
 " =============================
 
+lua << EOF
+    require'nvim-tree'.setup{
+        open_on_setup = true,
+        auto_close = true,
+        open_on_tab = true,
+    }
+EOF
+
+
+" =============================
+"           OTHER
+" =============================
+
+set encoding=utf8
+" set guifont=JetBrains\ Mono\ NL:h14
 let g:wordmotion_nomap = 1
+let g:sexp_enable_insert_mode_mappings = 0
+
