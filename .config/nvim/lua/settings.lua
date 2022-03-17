@@ -1,5 +1,5 @@
 --- set leader keys
-vim.g.mapleader = "<Space>"
+vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 local set = vim.opt
@@ -42,7 +42,7 @@ vim.api.nvim_command([[ au! BufWritePost $MYVIMRC source %]])
 --- ???
 vim.api.nvim_command([[ cmap w!! w !sudo tee % ]])
 
-vim.g.python3_host_prog = "~/.virtualenvs/py3venv/bin/python3.7"
+vim.g.python3_host_prog = "~/.virtualenvs/py3venv/bin/python3.9"
 
 set.encoding = "utf8"
 --- set.guifont=JetBrains\ Mono\ NL:h14
@@ -78,6 +78,10 @@ vim.api.nvim_set_keymap("n", "<leader>h", "<C-w>h", noremap)
 vim.api.nvim_set_keymap("n", "<leader>j", "<C-w>j", noremap)
 vim.api.nvim_set_keymap("n", "<leader>k", "<C-w>k", noremap)
 vim.api.nvim_set_keymap("n", "<leader>l", "<C-w>l", noremap)
+
+--- close
+vim.api.nvim_set_keymap("n", "<leader>cw", "<C-w>c", noremap)
+vim.api.nvim_set_keymap("n", "<leader>cb", ":bp | sp | bn | bd<CR>", noremap)
 
 --- disable setting macros
 vim.api.nvim_set_keymap("", "q", "<Nop>", {})

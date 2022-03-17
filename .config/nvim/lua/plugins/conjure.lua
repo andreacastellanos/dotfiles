@@ -1,3 +1,3 @@
-vim.api.nvim_set_keymap("n", "<leader>cb", ":ConjureLogVSplit <CR> :ConjureConnect<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>rt", ":ConjureEvalBuf <CR> :ConjureCljRunCurrentTest<CR>", {})
-vim.api.nvim_set_keymap("n", "<leader>rta", ":ConjureEvalBuf <CR> :ConjureCljRunAllTests<CR>", {})
+vim.api.nvim_set_keymap("n", "<leader>cc", ":ConjureLogVSplit <CR> :ConjureConnect<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>ct", ":ConjureEvalBuf <CR> :ConjureCljRunCurrentTest<CR>", { noremap = true })
+vim.api.nvim_set_keymap("n", "<leader>cta", ":ConjureEvalBuf <CR> :ConjureCljRunAllTests<CR>", { noremap = true })
