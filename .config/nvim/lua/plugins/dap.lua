@@ -16,9 +16,10 @@ vim.api.nvim_command([[ command! -complete=file -nargs=* Python lua require("deb
 
 local noremap_silent = { noremap = true, silent = true }
 
-vim.api.nvim_set_keymap("n", "<leader>c", "<cmd>lua require('dap').continue()<CR>", noremap_silent)
-vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua require('dap').toggle_breakpoint()<CR>", noremap_silent)
-vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua require('dap').repl.open({}, 'vsplit')<CR>", noremap_silent)
-vim.api.nvim_set_keymap("n", "<leader>s", "<cmd>lua require('dap').step_over()<CR>", noremap_silent)
-vim.api.nvim_set_keymap("n", "<leader>si", "<cmd>lua require('dap').step_into()<CR>", noremap_silent)
-vim.api.nvim_set_keymap("n", "<leader>so", "<cmd>lua require('dap').step_out()<CR>", noremap_silent)
+local dap = 'require("dap")'
+vim.api.nvim_set_keymap("n", "<leader>c", "<cmd>lua " .. dap .. ".continue()<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>b", "<cmd>lua " .. dap .. ".toggle_breakpoint()<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>r", "<cmd>lua " .. dap .. ".repl.open({}, 'vsplit')<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>s", "<cmd>lua " .. dap .. ".step_over()<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>si", "<cmd>lua " .. dap .. ".step_into()<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>so", "<cmd>lua " .. dap .. ".step_out()<CR>", noremap_silent)

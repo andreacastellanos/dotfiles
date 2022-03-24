@@ -10,7 +10,7 @@ end
 return require("packer").startup(function(use)
     use("wbthomason/packer.nvim")
 
-    --- syntax and movement
+    -- syntax and movement
     use "sheerun/vim-polyglot"
     -- use "ntpeters/vim-better-whitespace"
     use "b3nj5m1n/kommentary"
@@ -18,12 +18,13 @@ return require("packer").startup(function(use)
     use "tpope/vim-surround"
     use "guns/vim-sexp"
     use "tpope/vim-sexp-mappings-for-regular-people"
+    use "jiangmiao/auto-pairs"
 
-    --- theme
+    -- theme
     use "shaunsingh/solarized.nvim"
     use "kyazdani42/nvim-web-devicons"
 
-    --- visual
+    -- visual
     use "kosayoda/nvim-lightbulb"
     use {
         "nvim-treesitter/nvim-treesitter",
@@ -32,11 +33,11 @@ return require("packer").startup(function(use)
     use "p00f/nvim-ts-rainbow"
     use "kyazdani42/nvim-tree.lua"
 
-    --- statusline and buffertabs
+    -- statusline and bufferline
     use "nvim-lualine/lualine.nvim"
-    use "romgrk/barbar.nvim"
+    use "akinsho/bufferline.nvim"
 
-    --- search
+    -- search
     use {
         "nvim-telescope/telescope.nvim",
         requires = {
@@ -44,13 +45,13 @@ return require("packer").startup(function(use)
         }
     }
 
-    --- start up screen
+    -- start up screen
     use "mhinz/vim-startify"
 
-    --- git
-    use "mhinz/vim-signify"
+    -- git
+    use "lewis6991/gitsigns.nvim"
 
-    --- clojure
+    -- clojure
     use "Olical/conjure"
     use {
         "clojure-vim/vim-jack-in",
@@ -66,10 +67,10 @@ return require("packer").startup(function(use)
     use "rcarriga/nvim-dap-ui"
     use "theHamsta/nvim-dap-virtual-text"
 
-    --- sessions
+    -- sessions
     -- use "rmagatti/session-lens"
 
-    --- lsp
+    -- lsp
     use "neovim/nvim-lspconfig"
     use {
         "hrsh7th/nvim-cmp",
@@ -80,7 +81,7 @@ return require("packer").startup(function(use)
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/cmp-buffer"
 
-    --- other
+    -- other
     use "liuchengxu/vim-which-key"
 
     -- Automatically set up your configuration after cloning packer.nvim

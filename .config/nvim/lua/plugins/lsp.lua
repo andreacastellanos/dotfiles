@@ -1,13 +1,13 @@
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+    -- local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     local telescope = 'require("telescope.builtin")'
     local telescope_theme = 'require("telescope.themes")'
     local noremap_silent = { noremap = true, silent = true }
 
     -- Enable completion triggered by <c-x><c-o>
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+    -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     client.resolved_capabilities.document_formatting = false
 
@@ -36,7 +36,9 @@ end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-require("lspconfig").clojure_lsp.setup{
+local lspconfig = require("lspconfig")
+
+lspconfig.clojure_lsp.setup{
     on_attach = on_attach,
     capabilities = capabilities,
     handlers = {
@@ -44,7 +46,7 @@ require("lspconfig").clojure_lsp.setup{
     },
 }
 
-require("lspconfig").pylsp.setup{
+lspconfig.pylsp.setup{
     cmd = { "~/.virtualenvs/py3venv/bin/pylsp" },
     on_attach=on_attach,
     capabilities = capabilities,

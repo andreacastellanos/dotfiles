@@ -1,6 +1,11 @@
 local cmp = require("cmp")
 local lspkind = require("lspkind")
 cmp.setup({
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
     mapping = {
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -13,6 +18,7 @@ cmp.setup({
         { name = "nvim_lsp" },
         { name = "buffer" } ,
         { name = "path" },
+        { name = "ultisnips" },
     },
     formatting = {
         format = lspkind.cmp_format({

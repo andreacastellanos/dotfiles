@@ -3,9 +3,9 @@ require("nvim-treesitter.configs").setup {
     highlight = {
         enable = true,
     },
-    rainbow = {
-        enable = true,
-    },
+    -- rainbow = {
+    --     enable = true,
+    -- },
 }
 
-require("nvim-treesitter.highlight")
+-- require("nvim-treesitter.highlight")

@@ -12,17 +12,15 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [
 \   { "c": "~/.config/nvim/" },
-\   { "s": "~/.config/nvim/settings.vim" },
-\   { "m": "~/.config/nvim/mappings.vim" },
-\   { "p": "~/.config/nvim/plugins.vim" },
+\   { "s": "~/.config/nvim/lua/settings.lua" },
+\   { "p": "~/.config/nvim/lua/plugins.lua" },
 \   { "z": "~/.zshrc"  },
 \ ]
 ]])
 
 vim.g.startify_session_autoload = true
-vim.g.startify_session_delete_buffers = true
+-- vim.g.startify_session_delete_buffers = true
 vim.g.startify_change_to_vcs_root = true
 vim.g.startify_fortune_use_unicode = true
 vim.g.startify_session_persistence = true
-
 vim.g.webdevicons_enable_startify = true
