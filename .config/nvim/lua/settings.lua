@@ -27,7 +27,7 @@ set.updatetime = 300
 set.timeoutlen = 500
 set.clipboard = "unnamedplus"
 set.relativenumber = true
---set.colorcolumn = "80"
+-- set.colorcolumn = "80"
 set.incsearch = true
 set.foldmethod = "indent"
 set.foldnestmax = 10
@@ -47,8 +47,6 @@ vim.g.python3_host_prog = "~/.virtualenvs/py3venv/bin/python3.9"
 
 set.encoding = "utf8"
 -- set.guifont=JetBrains\ Mono\ NL:h14
-
-vim.api.nvim_command([[ hi MatchParen cterm=bold ctermbg=none ctermfg=green ]])
 
 local noremap = { noremap = true }
 
@@ -88,11 +86,12 @@ vim.api.nvim_set_keymap("n", "<leader>cb", ":bp | sp | bn | bd<CR>", noremap)
 -- disable setting macros
 vim.api.nvim_set_keymap("", "q", "<Nop>", {})
 
--- don't yank on delete char/line
+-- don't yank on delete/change
 vim.api.nvim_set_keymap("", "x", '"_x', noremap)
 vim.api.nvim_set_keymap("", "X", '"_X', noremap)
 vim.api.nvim_set_keymap("", "dd", '"_dd', noremap)
 vim.api.nvim_set_keymap("", "d", '"_d', noremap)
+vim.api.nvim_set_keymap("", "c", '"_c', noremap)
 
 -- yank to end of line
 vim.api.nvim_set_keymap("n", "Y", "y$", noremap)
@@ -105,3 +104,5 @@ vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", noremap)
 
 -- clear highlighting
 vim.api.nvim_set_keymap("n", "<leader>hc", ":noh<CR>", noremap)
+
+-- todo: change matching paren to yellow or something

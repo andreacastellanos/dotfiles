@@ -9,6 +9,12 @@ local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     -- buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+    local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
+    for type, icon in pairs(signs) do
+        local hl = "DiagnosticSign" .. type
+        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
+
     client.resolved_capabilities.document_formatting = false
 
     buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", noremap_silent)
@@ -17,10 +23,9 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "sh", "<cmd>lua vim.lsp.buf.signature_help()<CR>", noremap_silent)
     buf_set_keymap("v", "fm", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", noremap_silent)
     buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", noremap_silent)
+    buf_set_keymap("n", "df", "<cmd>lua vim.diagnostic.open_float()<CR>", noremap_silent)
     buf_set_keymap("n", "ls", "<cmd>lua " .. telescope .. ".lsp_references()<CR>", noremap_silent)
     buf_set_keymap("n", "ca", "<cmd>lua " .. telescope .. ".lsp_code_actions(" .. telescope_theme .. ".get_cursor())<CR>", noremap_silent)
-    buf_set_keymap("n", "gj", "<cmd>lua vim.lsp.buf.goto_next()<CR>", noremap_silent)
-    buf_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.goto_prev()<CR>", noremap_silent)
 
     -- if client.resolved_capabilities.document_highlight then
     --     vim.api.nvim_exec([[
@@ -31,7 +36,6 @@ local on_attach = function(client, bufnr)
     --         augroup END
     --     ]], false)
     -- end
-
 end
 
 local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -42,7 +46,12 @@ lspconfig.clojure_lsp.setup{
     on_attach = on_attach,
     capabilities = capabilities,
     handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false })
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, { 
+            virtual_text = false,
+            underline = false,
+            update_in_insert = false,
+            signs = false,
+        })
     },
 }
 
@@ -51,3 +60,4 @@ lspconfig.pylsp.setup{
     on_attach=on_attach,
     capabilities = capabilities,
 }
+

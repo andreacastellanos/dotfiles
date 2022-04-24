@@ -3,9 +3,15 @@ require("nvim-treesitter.configs").setup {
     highlight = {
         enable = true,
     },
-    -- rainbow = {
-    --     enable = true,
-    -- },
 }
 
--- require("nvim-treesitter.highlight")
+require("nvim-treesitter.highlight").set_custom_captures {
+    ["punctuation.bracket"] = "TSNone", -- gray
+}
+
+require("nvim-autopairs").setup({
+    check_ts = true,
+})
+
+require('nvim-autopairs.ts-conds')
+

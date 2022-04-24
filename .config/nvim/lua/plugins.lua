@@ -18,19 +18,17 @@ return require("packer").startup(function(use)
     use "tpope/vim-surround"
     use "guns/vim-sexp"
     use "tpope/vim-sexp-mappings-for-regular-people"
-    use "jiangmiao/auto-pairs"
+    use "windwp/nvim-autopairs"
 
     -- theme
     use "shaunsingh/solarized.nvim"
     use "kyazdani42/nvim-web-devicons"
 
     -- visual
-    use "kosayoda/nvim-lightbulb"
     use {
         "nvim-treesitter/nvim-treesitter",
         run = ":TSUpdate"
     }
-    use "p00f/nvim-ts-rainbow"
     use "kyazdani42/nvim-tree.lua"
 
     -- statusline and bufferline
@@ -46,7 +44,7 @@ return require("packer").startup(function(use)
     }
 
     -- start up screen
-    use "mhinz/vim-startify"
+    use "goolord/alpha-nvim"
 
     -- git
     use "lewis6991/gitsigns.nvim"
@@ -61,7 +59,7 @@ return require("packer").startup(function(use)
         }
     }
 
-    --- debuggers
+    -- debuggers
     use "mfussenegger/nvim-dap"
     use "mfussenegger/nvim-dap-python"
     use "rcarriga/nvim-dap-ui"
