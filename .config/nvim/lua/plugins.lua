@@ -15,7 +15,7 @@ return require("packer").startup(function(use)
     -- use "ntpeters/vim-better-whitespace"
     use "b3nj5m1n/kommentary"
     use "chaoren/vim-wordmotion"
-    use "tpope/vim-surround"
+    use "echasnovski/mini.surround"
     use "guns/vim-sexp"
     use "tpope/vim-sexp-mappings-for-regular-people"
     use "windwp/nvim-autopairs"
@@ -39,7 +39,7 @@ return require("packer").startup(function(use)
 
     -- statusline and bufferline
     use "nvim-lualine/lualine.nvim"
-    use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+    use {"akinsho/bufferline.nvim", tag = "*", requires = "nvim-tree/nvim-web-devicons"}
 
     -- search
     use {
