@@ -45,24 +45,6 @@ alias rc="vim ~/.zshrc"
 alias src="source ~/.zshrc"
 
 # =============================
-#        TREASURY PRIME
-# =============================
-
-alias t="cd ~/TreasuryPrime"
-alias c="cd ~/TreasuryPrime/core"
-alias a="cd ~/TreasuryPrime/auth"
-
-JAVA_HOME=/opt/homebrew/opt/openjdk@11/libexec/openjdk.jdk/Contents/Home
-export PATH="/opt/homebrew/opt/openjdk@11/bin:$PATH"
-
-export PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@12/bin:$PATH"
-export PATH="/opt/homebrew/opt/clojure/bin:$PATH"
-export PATH="/opt/homebrew/opt/node@12/bin:$PATH"
-
-export CPPFLAGS="-I/opt/homebrew/opt/openjdk@11/include"
-
-# =============================
 #        GIT COMMANDS
 # =============================
 
@@ -82,12 +64,12 @@ alias grs="git checkout master -- $1"
 alias noop="git commit --allow-empty -m 'no op' && git push"
 
 function gh {
-  open -a "/Applications/Google Chrome.app" "https://github.com/TreasuryPrime/$(basename `git rev-parse --show-toplevel`)/compare/master...$(git branch | grep \* | cut -d ' ' -f2)"
+  open -a "/Applications/Google Chrome.app" "https://github.com/andreacastellanos/$(basename `git rev-parse --show-toplevel`)/compare/master...$(git branch | grep \* | cut -d ' ' -f2)"
 }
 
 function gb {
   if [ "$#" -eq 0 ]; then
-    echo "provide ticket and description"
+    echo "provide description"
   else
     initials=ac
     IFS=-
@@ -109,3 +91,7 @@ function gls () {
   git diff --staged --name-only
   printf "\n"
 }
+
+
+alias config='/usr/bin/git --git-dir=$HOME/dotfiles/ --work-tree=$HOME'
+

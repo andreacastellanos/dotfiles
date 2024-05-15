@@ -36,7 +36,6 @@ set.foldlevel = 2
 set.ignorecase = true
 set.smartcase = true
 set.termguicolors = true
-set.background = "light"
 
 -- auto source:source $MYVIMRC 
 vim.api.nvim_command([[ au! BufWritePost $MYVIMRC source %]])
@@ -55,15 +54,15 @@ vim.api.nvim_set_keymap("i", "<c-j>", '("\\<C-n>")', { noremap = true, expr = tr
 vim.api.nvim_set_keymap("i", "<c-k>", '("\\<C-p>")', { noremap = true, expr = true })
 
 -- alt + hjkl to resize windows
-vim.api.nvim_set_keymap("n", "<M-j>", ":resize -2<CR>", noremap)
-vim.api.nvim_set_keymap("n", "<M-k>", ":resize +2<CR>", noremap)
-vim.api.nvim_set_keymap("n", "<M-h>", ":vertical resize -2<CR>", noremap)
-vim.api.nvim_set_keymap("n", "<M-l>", ":vertical resize +2<CR>", noremap)
+vim.api.nvim_set_keymap("n", "<A-j>", ":resize -2<CR>", noremap)
+vim.api.nvim_set_keymap("n", "<A-k>", ":resize +2<CR>", noremap)
+vim.api.nvim_set_keymap("n", "<A-h>", ":vertical resize -2<CR>", noremap)
+vim.api.nvim_set_keymap("n", "<A-l>", ":vertical resize +2<CR>", noremap)
 
 vim.api.nvim_set_keymap("i", "jj", "<Esc>", noremap)
 
--- TAB move to text buffer
-vim.api.nvim_set_keymap("n", "<TAB>", ":bnext<CR>", noremap)
+-- TAB move to next buffer
+vim.api.nvim_set_keymap("n", "<TAB>", ":bnext | echo @%<CR>", noremap)
 vim.api.nvim_set_keymap("n", "<S-TAB>", ":bnext<CR>", noremap)
 
 -- save
@@ -81,7 +80,7 @@ vim.api.nvim_set_keymap("n", "<leader>l", "<C-w>l", noremap)
 
 -- close
 vim.api.nvim_set_keymap("n", "<leader>cw", "<C-w>c", noremap) -- <C-w>h<C-w>c<CR>
-vim.api.nvim_set_keymap("n", "<leader>cb", ":bp | sp | bn | bd<CR>", noremap)
+vim.api.nvim_set_keymap("n", "<leader>cb", ":bp | sp | bn | bd | <TAB><CR>", noremap)
 
 -- disable setting macros
 vim.api.nvim_set_keymap("", "q", "<Nop>", {})
@@ -106,3 +105,4 @@ vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", noremap)
 vim.api.nvim_set_keymap("n", "<leader>hc", ":noh<CR>", noremap)
 
 -- todo: change matching paren to yellow or something
+require('leap').add_default_mappings()

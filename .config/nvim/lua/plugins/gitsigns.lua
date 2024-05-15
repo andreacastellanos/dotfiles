@@ -12,7 +12,7 @@ local noremap_silent = { noremap = true, silent = true }
 
 local gitsigns = 'require("gitsigns")'
 
-vim.api.nvim_set_keymap("n", "<leader>gd", ":Gitsigns diffthis<CR>", noremap_silent)
+vim.api.nvim_set_keymap("n", "<leader>gdf", ":Gitsigns diffthis<CR>", noremap_silent)
 vim.api.nvim_set_keymap("n", "<leader>rh", ":Gitsigns reset_hunk<CR>", noremap_silent)
 vim.api.nvim_set_keymap("n", "<leader>ph", ":Gitsigns preview_hunk<CR>", noremap_silent)
 vim.api.nvim_set_keymap("n", "<leader>gsb", ":Gitsigns toggle_current_line_blame<CR>", noremap_silent)

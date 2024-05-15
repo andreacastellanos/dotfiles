@@ -1,6 +1,6 @@
 require("lualine").setup{
     options = {
-        theme = 'solarized_light'
+        theme = 'gruvbox_dark'
     },
     sections = { 
         lualine_x = { "filetype" },

@@ -19,10 +19,16 @@ return require("packer").startup(function(use)
     use "guns/vim-sexp"
     use "tpope/vim-sexp-mappings-for-regular-people"
     use "windwp/nvim-autopairs"
+    -- use "nvim-treesitter/nvim-treesitter-context"
+    -- use "gpanders/nvim-parinfer"
+    use "ggandor/leap.nvim"
 
     -- theme
     use "shaunsingh/solarized.nvim"
-    use "kyazdani42/nvim-web-devicons"
+    use "ellisonleao/gruvbox.nvim"
+    -- "sainnhe/everforest"
+    use "neanias/everforest-nvim"
+    use "nvim-tree/nvim-web-devicons"
 
     -- visual
     use {
@@ -33,7 +39,7 @@ return require("packer").startup(function(use)
 
     -- statusline and bufferline
     use "nvim-lualine/lualine.nvim"
-    use "akinsho/bufferline.nvim"
+    use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
 
     -- search
     use {
@@ -48,16 +54,6 @@ return require("packer").startup(function(use)
 
     -- git
     use "lewis6991/gitsigns.nvim"
-
-    -- clojure
-    use "Olical/conjure"
-    use {
-        "clojure-vim/vim-jack-in",
-        requires = {
-            { "tpope/vim-dispatch" },
-            { "radenling/vim-dispatch-neovim" },
-        }
-    }
 
     -- debuggers
     use "mfussenegger/nvim-dap"
@@ -78,6 +74,7 @@ return require("packer").startup(function(use)
     }
     use "hrsh7th/cmp-nvim-lsp"
     use "hrsh7th/cmp-buffer"
+    -- use "Mofiqul/trld.nvim" -- top right errors
 
     -- other
     use "liuchengxu/vim-which-key"
